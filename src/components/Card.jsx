@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
+import parse from 'html-react-parser';
 const style = {
   border: '1px dashed gray',
   padding: '0.5rem 1rem',
@@ -68,8 +69,10 @@ export const Card = ({ id, text, index, moveCard }) => {
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
   return (
-    <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      {text}
-    </div>
+    <>
+      <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+        {parse(text)}
+      </div>
+    </>
   );
 };
