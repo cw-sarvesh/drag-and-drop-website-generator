@@ -103,9 +103,35 @@ function App() {
   //         }
   //     })
   // });
+  const exportCodeToHtml = () => {
+    async function saveToFile() {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: 'index.html',
+        types: [
+          {
+            description: 'HTML',
+            accept: { 'text/html': ['.html'] },
+          },
+        ],
+      });
+      const writable = await handle.createWritable();
+      await writable.write(document.body.parentNode.innerHTML);
+      writable.close();
+    }
+    saveToFile();
+  };
   return (
     <>
       <div className="App">
+        <div className="export-code-button">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={exportCodeToHtml}
+          >
+            Export Code
+          </button>
+        </div>
         <DndProvider backend={HTML5Backend}>
           <Example />
         </DndProvider>
